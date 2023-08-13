@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct stack {
+  int data;
+  struct stack *next;
+};
+
+struct stack *top = NULL;
+
+void push(int data) {
+  struct stack *new_node = (struct stack *)malloc(sizeof(struct stack));
+  new_node->data = data;
+  new_node->next = top;
+  top = new_node;
+}
+
+int pop() {
+  if (top == NULL) {
+    return -1;
+  }
+
+  int data = top->data;
+  top = top->next;
+  return data;
+}
+
+int peek() {
+  if (top == NULL) {
+    return -1;
+  }
+
+  return top->data;
+}
+
+int is_empty() {
+  return top == NULL;
+}
+
+void print_stack() {
+  struct stack *temp = top;
+  while (temp != NULL) {
+    printf("%d ", temp->data);
+    temp = temp->next;
+  }
+  printf("\n");
+}
+
+int main() {
+  push(10);
+  push(20);
+  push(30);
+
+  print_stack();
+
+  int data = pop();
+  printf("Popped data: %d\n", data);
+
+  data = peek();
+  printf("Peeked data: %d\n", data);
+
+  printf("Is stack empty? %d\n", is_empty());
+
+  return 0;
+}
